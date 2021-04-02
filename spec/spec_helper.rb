@@ -15,6 +15,11 @@
 require 'simplecov'
 SimpleCov.start 'rails'
 SimpleCov.add_filter ['spec', 'config']
+SimpleCov.add_filter "spec/factories"
+SimpleCov.add_filter "app/channels"
+SimpleCov.add_filter "app/jobs"
+SimpleCov.add_filter "app/mailers"
+SimpleCov.add_filter "app/controllers/application_controller"
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
