@@ -18,6 +18,7 @@ gem 'puma', '~> 3.11'
 
 # API
 gem 'faraday'
+gem 'fast_jsonapi'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -33,7 +34,14 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'pry'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'simplecov'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'shoulda-matchers', '~> 4.0'
   gem 'json'
+  gem 'rubocop-rails', require: false
 end
 
 group :development do
@@ -41,12 +49,6 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails'
-  gem 'capybara'
-  gem 'simplecov'
-  gem 'factory_bot_rails'
-  gem 'faker'
-  gem 'shoulda-matchers', '~> 4.0'
   gem 'webmock'
   gem 'vcr'
 end
