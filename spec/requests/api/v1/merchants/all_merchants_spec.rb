@@ -24,6 +24,11 @@ RSpec.describe "Get all merchants" do
 
       found_merchants = JSON.parse(response.body, symbolize_names: true)
       expect(found_merchants[:data].length).to eq 50
+
+      get '/api/v1/merchants?per_page=10&page=5'
+
+      found_merchants = JSON.parse(response.body, symbolize_names: true)
+      expect(found_merchants[:data].length).to eq 10
     end
     it 'Returns array if no resources found' do
       Merchant.destroy_all
