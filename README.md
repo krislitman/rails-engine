@@ -28,6 +28,7 @@ for notes on how to deploy the project on a live system.
 2. Install gem packages: `bundle install`
 3. Download data: https://raw.githubusercontent.com/turingschool/backend-curriculum-site/gh-pages/module3/projects/rails_engine/rails-engine-development.pgdump
 4. Run rails db:{drop,create,migrate,seed} -- (you may see errors from pg_restore that you can ignore)
+5. Run rails s to start the rails server, and to see json responses
 
 ## Overview
 
@@ -37,23 +38,28 @@ There are six different tables:
 <ul>
   <li>Items</li>
   <li>Merchants</li>
-  <li>Orders</li>
-  <li>Order-Items</li>
+  <li>Invoice Items</li>
+  <li>Customers</li>
   <li>Invoices</li>
   <li>Transactions</li>
   </ul>
 
 ## Running the tests
 
-Run **bundle exec rspec** to run the test suite.
+You will need Factory Bot set up to run the test suite. Please visit this link ![Factory Bot Rails](https://github.com/thoughtbot/factory_bot_rails) Run **bundle exec rspec** to run the test suite. 
 
 ## Built With
 
-- Ruby
-- Rails
+- Ruby on Rails
+- PostgreSQL
 - RSpec
+- Capybara
+- Fast JsonAPI
 - Factory Bot
 - Faker
+- Rubocop
+- Simplecov
+- Git Workflow
 
 ## Versions
 
