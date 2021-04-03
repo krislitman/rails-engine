@@ -10,11 +10,12 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def create
-    render json: Item.create(item_params)
+    item = Item.create!(item_params)
+    render json: ItemSerializer.create_item(item), status: 201
   end
 
   def update
-    render json: @item.update(item_params)
+    render json: @item.update!(item_params)
   end
 
   def destroy
