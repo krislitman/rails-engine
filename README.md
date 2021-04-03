@@ -46,7 +46,7 @@ There are six different tables:
 
 ## Running the tests
 
-You will need Factory Bot set up to run the test suite. Please visit this link ![Factory Bot Rails](https://github.com/thoughtbot/factory_bot_rails) Run **bundle exec rspec** to run the test suite. 
+You will need Factory Bot set up to run the test suite. Please visit this link [Factory Bot Rails](https://github.com/thoughtbot/factory_bot_rails) Run **bundle exec rspec** to run the test suite. 
 
 ## Built With
 
