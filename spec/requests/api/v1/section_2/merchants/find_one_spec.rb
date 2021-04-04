@@ -26,4 +26,15 @@ RSpec.describe 'Find one Merchant API' do
 
     expect(expected[:data][:attributes][:name]).to eq(merchant2.name)
   end
+  it 'Returns error when match does not happen' do
+    Merchant.destroy_all
+    merchant = create_list(:merchant, 30)
+    merchant2 = create(:merchant, name: "little esty shop")
+
+    get "/api/v1/merchants/find?name=NOMATCH"
+    expected = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response.status).to eq 200
+    expect(expected).to have_key(:data)
+  end
 end
