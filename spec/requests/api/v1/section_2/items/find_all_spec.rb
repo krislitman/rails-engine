@@ -17,7 +17,7 @@ RSpec.describe 'Item API' do
     expect(expected[:data].length).to eq 20
   end
   it 'Returns items with a min_price' do
-    Merchant.destroy_all
+    Merchant.destroy_all 
     Item.destroy_all
     merchant = create(:merchant)
     item1 = create(:item, unit_price: 2.00, merchant_id: merchant.id)
