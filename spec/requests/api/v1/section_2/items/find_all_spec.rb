@@ -66,12 +66,22 @@ RSpec.describe 'Item API' do
     expect(response.status).to eq 200
     expect(expected[:data].length).to eq 3
   end
-  it 'Should error out if name and price are sent' do
+  it 'Should error out if name and max price are sent' do
     merchant = create(:merchant)
     items1 = create_list(:item, 10, name: "sweet items", merchant_id: merchant.id)
     items2 = create_list(:item, 10, name: "really sweet description", merchant_id: merchant.id)
 
     get "/api/v1/items/find_all?name=sweet&max_price=10.00"
+
+    expect(response).not_to be_successful
+    expect(response.status).to eq 404
+  end
+  it 'Should error out if name and min price are sent' do
+    merchant = create(:merchant)
+    items1 = create_list(:item, 10, name: "sweet items", merchant_id: merchant.id)
+    items2 = create_list(:item, 10, name: "really sweet description", merchant_id: merchant.id)
+
+    get "/api/v1/items/find_all?name=sweet&min_price=2.00"
 
     expect(response).not_to be_successful
     expect(response.status).to eq 404
