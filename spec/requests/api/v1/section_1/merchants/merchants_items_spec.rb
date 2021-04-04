@@ -20,7 +20,12 @@ RSpec.describe 'Merchant API' do
     get "/api/v1/merchants/#{merchant.id}/items"
 
     found_items = JSON.parse(response.body, symbolize_names: true)
-    
+
+    found_items[:data].each do |item|
+      expect(item[:attributes]).to have_key(:name)
+      expect(item[:attributes]).to have_key(:description)
+      expect(item[:attributes]).to have_key(:unit_price)
+    end
     expect(response).to be_successful
     expect(found_items[:data].length).to eq 30
   end
