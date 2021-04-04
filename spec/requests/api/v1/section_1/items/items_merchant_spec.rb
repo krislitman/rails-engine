@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Items Merchant API' do
-  it 'Returns a 404 with no item found' do
+  it 'Returns a 404 with no merchant found' do
     Item.destroy_all
     Merchant.destroy_all
     
@@ -10,17 +10,18 @@ RSpec.describe 'Items Merchant API' do
     expect(response).not_to be_successful
     expect(response.status).to eq 404
   end
-  it 'Finds all items for merchant' do
+  it 'Finds merchant' do
     Item.destroy_all
     Merchant.destroy_all
     merchant = create(:merchant)
     items = create_list(:item, 30, merchant_id: merchant.id)
 
-    get "/api/v1/merchants/#{merchant.id}/items"
+    get "/api/v1/items/#{items.first.id}/merchant"
 
-    found_items = JSON.parse(response.body, symbolize_names: true)
-    
+    expected = JSON.parse(response.body, symbolize_names: true)
+
     expect(response).to be_successful
-    expect(found_items[:data].length).to eq 30
+    expect(expected.length).to eq 1
+    expect(expected[:data][:attributes][:name]).to eq(merchant.name)
   end
 end
