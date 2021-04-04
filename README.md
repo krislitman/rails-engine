@@ -12,7 +12,7 @@ Rails Engine is a Rails API Application, with data exposed through an API.
 
 ## Author
 
-  - **Kris Litman** -<br>
+  - **Kris Litman**<br>
     [GitHub](https://github.com/krislitman)<br>
     [LinkedIn](https://www.linkedin.com/in/kris-litman-7095351a4/)
 
