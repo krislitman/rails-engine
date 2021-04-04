@@ -21,9 +21,9 @@ RSpec.describe 'Total revenue for a merchant' do
 
     expected = JSON.parse(response.body, symbolize_names: true)
 
-    expect(responst).to be_successful
+    expect(response).to be_successful
     expect(response.status).to eq 200
     expect(expected[:data][:type]).to eq('merchant_revenue')
-    expect(expected[:data][:attributes][:revenue]).to eq 800.00
+    expect(expected[:data][:attributes][:revenue]).to eq 800.0
   end
 end
