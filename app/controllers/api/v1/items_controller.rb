@@ -1,5 +1,5 @@
 class Api::V1::ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :update]
+  before_action :set_item, only: %i[show update]
   def index
     items = ItemFacade.all_items(params.fetch(:page, 1), params.fetch(:per_page, 20))
     render json: ItemSerializer.new(items)
@@ -11,7 +11,7 @@ class Api::V1::ItemsController < ApplicationController
 
   def create
     item = Item.create!(item_params)
-    render json: ItemSerializer.create_item(item), status: 201
+    render json: ItemSerializer.create_item(item), status: :created
   end
 
   def update

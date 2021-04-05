@@ -1,12 +1,11 @@
 class Api::V1::Items::SearchController < ApplicationController
   def index
-    case
-    when params[:name] && params[:min_price] && params[:max_price]
-      render json: { message: "Wrong parameters" }, status: 404
-    when params[:name] && params[:min_price]
-      render json: { message: "Wrong parameters" }, status: 404
-    when params[:name] && params[:max_price]
-      render json: { message: "Wrong parameters" }, status: 404
+    if params[:name] && params[:min_price] && params[:max_price]
+      render json: { message: 'Wrong parameters' }, status: :not_found
+    elsif params[:name] && params[:min_price]
+      render json: { message: 'Wrong parameters' }, status: :not_found
+    elsif params[:name] && params[:max_price]
+      render json: { message: 'Wrong parameters' }, status: :not_found
     else
       items = ItemFacade.search(search_params)
       render json: ItemSerializer.new(items)

@@ -5,7 +5,7 @@ class MerchantSerializer
   def self.no_merchant
     {
       data: {
-        
+
       }
     }
   end
@@ -14,7 +14,7 @@ class MerchantSerializer
     {
       data: {
         id: merchant_data[:merchant].id.to_s,
-        type: "merchant_revenue",
+        type: 'merchant_revenue',
         attributes: {
           revenue: merchant_data[:revenue]
         }
