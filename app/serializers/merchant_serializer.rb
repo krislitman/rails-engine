@@ -21,4 +21,20 @@ class MerchantSerializer
       }
     }
   end
+
+  def self.merchants_by_revenue(merchants)
+    {
+      data: merchants.map do |merchant|
+        {
+          id: merchant.id.to_s,
+          type: "merchant_name_revenue",
+          attributes: {
+            name: merchant.name,
+            revenue: merchant.total_revenue
+          }
+        }
+      end
+    }
+    # require 'pry'; binding.pry
+  end
 end

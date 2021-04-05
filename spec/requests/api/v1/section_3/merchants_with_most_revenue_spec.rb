@@ -69,13 +69,21 @@ RSpec.describe 'Merchants with most revenue' do
     transaction12 = create(:transaction, invoice_id: invoice12.id, result: "success")
     # 800
 
-    get "/api/v1/revenue/merchants/#{merchant.id}"
+    get "/api/v1/revenue/merchants?quantity=2"
 
     expected = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to be_successful
     expect(response.status).to eq 200
-    expect(expected[:data][:type]).to eq('merchant_revenue')
-    expect(expected[:data][:attributes][:revenue]).to eq 600.0
+    expect(expected[:data][0][:type]).to eq('merchant_name_revenue')
+    expect(expected[:data].length).to eq 2
+
+    get "/api/v1/revenue/merchants?quantity=3"
+
+    expected = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to be_successful
+    expect(response.status).to eq 200
+    expect(expected[:data].length).to eq 3
   end
 end

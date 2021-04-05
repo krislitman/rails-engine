@@ -1,4 +1,8 @@
 class MerchantFacade
+  def self.merchants_by_revenue(quantity)
+    Merchant.by_revenue(quantity)
+  end
+
   def self.total_revenue(merchant)
     { revenue: merchant.total_revenue,
       merchant: merchant }

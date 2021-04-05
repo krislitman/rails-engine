@@ -4,12 +4,14 @@ Rails.application.routes.draw do
   # Merchants
   namespace :api do
     namespace :v1 do
-      # Merchant Search
+      # Nested Merchant Non RESTful routes
       namespace :merchants do
+        # Merchant Search
         resources :find, only: [:index], controller: :search
       end
-      # Item Search
+      # Nested Item Non RESTful routes
       namespace :items do
+        # Item Search
         resources :find_all, only: [:index], controller: :search
       end
       # Merchant_Items
@@ -20,9 +22,9 @@ Rails.application.routes.draw do
       resources :items, only: [:index, :show, :create, :update, :destroy] do
         resources :merchant, only: [:index], controller: :items_merchant
       end
-      # Total Revenue for Merchant
+      # Total Revenue for Merchant & Merchants by Most Revenue
       namespace :revenue do
-        resources :merchants, only: [:show], controller: :merchant
+        resources :merchants, only: [:index, :show], controller: :merchant
       end
     end
   end
