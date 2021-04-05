@@ -32,5 +32,12 @@ RSpec.describe "Get all items" do
         found_items = JSON.parse(response.body, symbolize_names: true)
         expect(found_items[:data].length).to eq 50
       end
+      it 'Returns error if wrong params given' do
+
+        get '/api/v1/items?per_page=0&page=0'
+
+        expect(response).not_to be_successful
+        expect(response.status).to eq 400
+      end
     end
   end

@@ -28,12 +28,18 @@ RSpec.describe 'Total revenue for a merchant' do
     transaction4 = create(:transaction, invoice_id: invoice4.id, result: "failed")
 
     get "/api/v1/revenue/merchants/#{merchant.id}"
-
+    
     expected = JSON.parse(response.body, symbolize_names: true)
-
+    
     expect(response).to be_successful
     expect(response.status).to eq 200
     expect(expected[:data][:type]).to eq('merchant_revenue')
     expect(expected[:data][:attributes][:revenue]).to eq 600.0
+  end
+  it 'Should return error if no merchant given' do
+    get "/api/v1/revenue/merchants/0"
+
+    expect(response).not_to be_successful
+    expect(response.status).to eq 404
   end
 end

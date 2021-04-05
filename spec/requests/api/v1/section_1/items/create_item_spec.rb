@@ -39,8 +39,6 @@ RSpec.describe 'Item API' do
     created_item = Item.last
 
     expect(response).not_to be_successful
-    # expect(created_item.name).to eq(item_params[:name])
-    # expect(created_item.description).to eq(item_params[:description])
-    # expect(created_item.unit_price).to eq(item_params[:unit_price])
+    expect(response.status).to eq 404
   end
 end

@@ -69,8 +69,7 @@ RSpec.describe Merchant do
 
       expected = Merchant.by_revenue(2)
 
-      expect(expected.last.name).to eq(merchant3.name)
-      expect(expected.first.name).to eq(merchant2.name)
+      expect(expected.length).to eq 2
     end
   end
   describe 'Instance Methods' do
