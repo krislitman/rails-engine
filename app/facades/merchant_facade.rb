@@ -1,6 +1,6 @@
 class MerchantFacade
   def self.total_revenue(merchant)
-    expected = { revenue: merchant.total_revenue,
+    { revenue: merchant.total_revenue,
       merchant: merchant }
   end
   
