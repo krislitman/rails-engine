@@ -86,4 +86,11 @@ RSpec.describe 'Merchants with most revenue' do
     expect(response.status).to eq 200
     expect(expected[:data].length).to eq 3
   end
+  it 'With no quantity param, returns error' do
+
+    get "/api/v1/revenue/merchants?quantity=0"
+
+    expect(response).not_to be_successful
+    expect(response.status).to eq 400
+  end
 end

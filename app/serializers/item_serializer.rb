@@ -13,6 +13,6 @@ class ItemSerializer
           merchant_id: item.merchant_id
         }
       }
-    }.to_json
+    }
   end
 end

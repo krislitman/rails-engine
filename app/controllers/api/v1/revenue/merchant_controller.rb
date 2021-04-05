@@ -1,7 +1,7 @@
 class Api::V1::Revenue::MerchantController < ApplicationController
   def index
-    if params[:quantity].nil?
-      render json: { error: 'Missing parameters' }, status: 400
+    if params[:quantity].nil? || params[:quantity].to_i <= 0
+      render json: { error: 'Missing parameters' }, status: :bad_request
     else
       merchants = MerchantFacade.merchants_by_revenue(params[:quantity])
       render json: MerchantSerializer.merchants_by_revenue(merchants)

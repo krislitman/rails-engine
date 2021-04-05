@@ -21,10 +21,10 @@ class Merchant < ApplicationRecord
 
   def self.by_revenue(quantity)
     # .where('transactions.result = ?', 'success')
-    expected = joins(:invoice_items)
-    .select('merchants.*, sum(unit_price * quantity) as total_revenue')
-    .group('merchants.id')
-    .order('total_revenue DESC')
-    .limit(quantity)
+    joins(:invoice_items)
+      .select('merchants.*, sum(unit_price * quantity) as total_revenue')
+      .group('merchants.id')
+      .order('total_revenue DESC')
+      .limit(quantity)
   end
 end

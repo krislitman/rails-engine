@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Total revenue for a merchant' do
   it 'Can return a merchants total revenue based on merchant id' do
+    Merchant.destroy_all
+    Item.destroy_all
+    Invoice.destroy_all
+    Transaction.destroy_all
+    Customer.destroy_all
+    InvoiceItem.destroy_all
     merchant = create(:merchant)
     customer = create(:customer)
     item1 = create(:item, merchant_id: merchant.id)
