@@ -24,6 +24,7 @@ class Api::V1::ItemsController < ApplicationController
   end
   
   def destroy
+    Invoice.destroy(@item.destroy_invoice)
     render json: Item.delete(@item)
   end
 
