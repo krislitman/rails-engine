@@ -1,15 +1,6 @@
 class MerchantSerializer
   include FastJsonapi::ObjectSerializer
   attributes :name
-
-  def self.no_merchant
-    {
-      data: {
-
-      }
-    }
-  end
-
   def self.total_revenue(merchant_data)
     {
       data: {
@@ -35,6 +26,5 @@ class MerchantSerializer
         }
       end
     }
-    # require 'pry'; binding.pry
   end
 end
