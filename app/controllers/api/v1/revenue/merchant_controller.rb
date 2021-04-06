@@ -4,12 +4,12 @@ class Api::V1::Revenue::MerchantController < ApplicationController
       render json: { error: 'Missing parameters' }, status: :bad_request
     else
       merchants = MerchantFacade.merchants_by_revenue(params[:quantity])
-      render json: MerchantSerializer.merchants_by_revenue(merchants)
+      render json: MerchantNameRevenueSerializer.new(merchants)
     end
   end
 
   def show
     merchant_data = MerchantFacade.total_revenue(Merchant.find(params[:id]))
-    render json: MerchantSerializer.total_revenue(merchant_data)
+    render json: MerchantRevenueSerializer.single_merchant_revenue(merchant_data)
   end
 end
