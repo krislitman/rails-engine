@@ -74,7 +74,7 @@ RSpec.describe 'Item API' do
     get "/api/v1/items/find_all?name=sweet&max_price=10.00"
 
     expect(response).not_to be_successful
-    expect(response.status).to eq 404
+    expect(response.status).to eq 400
   end
   it 'Should error out if name and min price are sent' do
     merchant = create(:merchant)
@@ -84,7 +84,7 @@ RSpec.describe 'Item API' do
     get "/api/v1/items/find_all?name=sweet&min_price=2.00"
 
     expect(response).not_to be_successful
-    expect(response.status).to eq 404
+    expect(response.status).to eq 400
   end
   it 'Should error out if both name and price min/max are sent' do
     merchant = create(:merchant)
@@ -94,6 +94,6 @@ RSpec.describe 'Item API' do
     get "/api/v1/items/find_all?name=sweet&min_price=3.50&max_price=10.00"
 
     expect(response).not_to be_successful
-    expect(response.status).to eq 404
+    expect(response.status).to eq 400
   end
 end

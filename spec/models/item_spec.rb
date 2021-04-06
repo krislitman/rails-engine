@@ -32,7 +32,7 @@ RSpec.describe Item do
 
       expected = invoice1.id
 
-      expect(item1.destroy_invoice).to eq(invoice1.id)
+      expect(item1.destroy_invoice[0]).to eq(invoice1.id)
       expect(item2.destroy_invoice).to eq([])
       expect(item3.destroy_invoice).to eq([])
     end
