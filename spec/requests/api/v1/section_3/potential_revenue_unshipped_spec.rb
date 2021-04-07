@@ -7,5 +7,6 @@ RSpec.describe 'Report of orders which have not shipped' do
 
       expect(response).not_to be_successful
       expect(response.status).to eq 400
+    end
   end
 end
