@@ -11,6 +11,16 @@ class Merchant < ApplicationRecord
                      .order(:name)
                  }
 
+  def self.items_sold(quantity)
+    joins(items: { invoice_items: :transactions })
+    .where('transactions.result = ?', 'success')
+    .select('merchants.*,
+    sum(invoice_items.quantity) as item_count')
+    .group('merchants.id')
+    .order('item_count desc')
+    .limit(quantity)
+  end
+
   def total_revenue
     expected = invoice_items
                .joins(:transactions)

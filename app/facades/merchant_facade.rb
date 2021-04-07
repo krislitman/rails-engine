@@ -1,4 +1,9 @@
 class MerchantFacade
+  def self.items_sold(quantity)
+    quantity = 5 if quantity.nil?
+    Merchant.items_sold(quantity)
+  end
+
   def self.merchants_by_revenue(quantity)
     Merchant.by_revenue(quantity)
   end

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       # Nested Merchant Non RESTful routes
       namespace :merchants do
+        # Merchants by most Items sold
+        resources :most_items, only: [:index], controller: :most_items
         # Merchant Search
         resources :find, only: [:index], controller: :search
       end

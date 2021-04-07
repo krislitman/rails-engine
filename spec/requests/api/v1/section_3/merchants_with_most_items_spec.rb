@@ -8,24 +8,46 @@ RSpec.describe 'Endpoint to return variable number of merchants' do
       expect(response).not_to be_successful
       expect(response.status).to eq 400
     end
-      it 'Returns 5 as default when no quantity is given'
+      it 'Returns 5 as default when no quantity is given' do
       merchant1 = create(:merchant)
-      items1 = create_list(:item, 10, merchant_id: merchant1.id)
-      
-      merchant2 = create(:merchant)
-      items2 = create_list(:item, 20, merchant_id: merchant2.id)
-      
-      merchant3 = create(:merchant)
-      items3 = create_list(:item, 30, merchant_id: merchant3.id)
+      customer = create(:customer)
+      item1 = create(:item, merchant_id: merchant1.id)
+      invoice1 = create(:invoice, customer_id: customer.id, merchant_id: merchant1.id)
+      invoice_items1 = create_list(:invoice_item, 10, item_id: item1.id, invoice_id: invoice1.id)
 
-      merchant4 = create(:merchant)
-      items4 = create_list(:item, 40, merchant_id: merchant4.id)
+      merchant2 = create(:merchant)
+      item2 = create(:item, merchant_id: merchant2.id)
+      invoice2 = create(:invoice, customer_id: customer.id, merchant_id: merchant2.id)
+      invoice_items2 = create_list(:invoice_item, 20, item_id: item2.id, invoice_id: invoice2.id)
+
+      merchant3 = create(:merchant)
+      item3 = create(:item, merchant_id: merchant3.id)
+      invoice3 = create(:invoice, customer_id: customer.id, merchant_id: merchant3.id)
+      invoice_items3 = create_list(:invoice_item, 30, item_id: item3.id, invoice_id: invoice3.id)
       
+      merchant4 = create(:merchant)
+      item4 = create(:item, merchant_id: merchant4.id)
+      invoice4 = create(:invoice, customer_id: customer.id, merchant_id: merchant4.id)
+      invoice_items4 = create_list(:invoice_item, 40, item_id: item4.id, invoice_id: invoice4.id)
+
       merchant5 = create(:merchant)
-      items5 = create_list(:item, 50, merchant_id: merchant5.id)
+      item5 = create(:item, merchant_id: merchant5.id)
+      invoice5 = create(:invoice, customer_id: customer.id, merchant_id: merchant5.id)
+      invoice_items5 = create_list(:invoice_item, 50, item_id: item5.id, invoice_id: invoice5.id)
 
       merchant6 = create(:merchant)
-      items6 = create_list(:item, 60, merchant_id: merchant6.id)
+      item6 = create(:item, merchant_id: merchant6.id)
+      invoice6 = create(:invoice, customer_id: customer.id, merchant_id: merchant6.id)
+      invoice_items6 = create_list(:invoice_item, 60, item_id: item6.id, invoice_id: invoice6.id)
+      
+
+      get '/api/v1/merchants/most_items'
+
+      expected = JSON.parse(response.body, symbolize_names: true)
+
+      expect(expected[:data].length).to eq 5
+      end
+  
       it 'Returns more than 5'
   end
 end
