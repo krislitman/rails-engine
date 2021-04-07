@@ -37,6 +37,7 @@ RSpec.describe 'Total revenue for a merchant' do
     expect(expected[:data][:attributes][:revenue]).to eq 600.0
   end
   it 'Should return error if no merchant given' do
+    
     get "/api/v1/revenue/merchants/0"
 
     expect(response).not_to be_successful
