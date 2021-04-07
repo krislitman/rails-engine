@@ -13,7 +13,7 @@ class Merchant < ApplicationRecord
 
   def self.items_sold(quantity)
     joins(items: { invoice_items: :transactions })
-    .where('transactions.result = ?', 'success')
+    .merge(Transaction.successful)
     .select('merchants.*,
     sum(invoice_items.quantity) as item_count')
     .group('merchants.id')
@@ -24,7 +24,7 @@ class Merchant < ApplicationRecord
   def total_revenue
     expected = invoice_items
                .joins(:transactions)
-               .where('transactions.result = ?', 'success')
+               .merge(Transaction.successful)
                .where('invoices.status = ?', 'shipped')
                .select('sum(unit_price * quantity) as total_revenue')
     expected[0].total_revenue
