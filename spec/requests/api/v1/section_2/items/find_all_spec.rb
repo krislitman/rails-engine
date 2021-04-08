@@ -96,4 +96,15 @@ RSpec.describe 'Item API' do
     expect(response).not_to be_successful
     expect(response.status).to eq 400
   end
+  it "Should error out if parameter is missing or empty" do
+    get "/api/v1/items/find_all"
+
+    expect(response).not_to be_successful
+    expect(response.status).to eq 400
+
+    get "/api/v1/items/find_all?name="
+
+    expect(response).not_to be_successful
+    expect(response.status).to eq 400
+  end
 end

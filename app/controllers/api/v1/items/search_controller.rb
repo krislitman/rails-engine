@@ -1,10 +1,25 @@
 class Api::V1::Items::SearchController < ApplicationController
   def index
-    if params[:name] && (params[:min_price] || params[:max_price])
-      render json: { message: 'Wrong parameters' }, status: :bad_request
+    case 
+    when !params[:name] && !params[:min_price] && !params[:max_price]
+      render json: { message: 'Incorrect parameters' }, status: :bad_request
+    when params[:name].blank? && params[:min_price].nil? && params[:max_price].nil?
+      render json: { message: 'Incorrect parameters' }, status: :bad_request
+    when params[:name] && ( params[:min_price] || params[:max_price] )
+      render json: { message: 'Incorrect parameters' }, status: :bad_request
     else
       items = ItemFacade.search(search_params)
       render json: ItemSerializer.new(items)
+        
+    # when params[:name] && (params[:min_price] || params[:max_price])
+    # when params[:name].empty? &&  !params[:min_price] && !params[:max_price] 
+      # render json: { message: 'Incorrect parameters' }, status: :bad_request
+    # when (!params[:name] && ( !params[:min_price] || !params[:max_price] )) || params[:name].empty?
+    #   render json: { message: 'Incorrect parameters' }, status: :bad_request
+      # end
+    # else
+    #   items = ItemFacade.search(search_params)
+    #   render json: ItemSerializer.new(items)
     end
   end
 

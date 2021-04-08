@@ -4,7 +4,9 @@ class ItemFacade
   end
 
   def self.search(search_terms)
-    if search_terms[:min_price] &&
+    if search_terms.empty?
+      return
+    elsif search_terms[:min_price] &&
        search_terms[:max_price]
       price_search(search_terms[:min_price],
                    search_terms[:max_price])
