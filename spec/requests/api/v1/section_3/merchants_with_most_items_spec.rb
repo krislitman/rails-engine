@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Endpoint to return variable number of merchants' do
   describe 'Ranked by total number of items sold' do
     it 'Errors out when quantity is not greater than 0' do
+      
       get '/api/v1/merchants/most_items?quantity=0'
 
       expect(response).not_to be_successful
