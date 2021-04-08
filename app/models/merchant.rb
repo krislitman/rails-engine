@@ -32,7 +32,8 @@ class Merchant < ApplicationRecord
 
   def self.by_revenue(quantity)
     find_by_sql(
-      "select merchants.*, sum(invoice_items.unit_price * invoice_items.quantity) as total_revenue from merchants
+      "select merchants.*, sum(invoice_items.unit_price * invoice_items.quantity) 
+      as total_revenue from merchants
       inner join items 
       on items.merchant_id = merchants.id 
       inner join invoice_items
