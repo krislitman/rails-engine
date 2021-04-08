@@ -41,6 +41,7 @@ group :development, :test do
   gem 'faker'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'json'
+  gem 'orderly'
   gem 'rubocop-rails', require: false
 end
 

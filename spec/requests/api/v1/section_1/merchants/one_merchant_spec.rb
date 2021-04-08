@@ -6,14 +6,20 @@ RSpec.describe "Gets one merchant" do
     @merchants = create_list(:merchant, 20)
   end
   describe 'Merchants API' do
-      it 'Returns a single merchant by id' do
+    it 'Returns a single merchant by id' do
       get "/api/v1/merchants/#{@merchants.first.id}"
-
+      
       @found_merchant = JSON.parse(response.body, symbolize_names: true)
       
       expect(response).to be_successful
       expect(response.status).to eq 200
       expect(@found_merchant).to be_a Hash
+    end
+    it 'Returns error if no merchant is found' do
+      get "/api/v1/merchants/0"
+
+      expect(response).not_to be_successful
+      expect(response.status).to eq 404
     end
   end
 end

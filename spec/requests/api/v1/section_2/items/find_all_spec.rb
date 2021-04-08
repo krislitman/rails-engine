@@ -17,7 +17,7 @@ RSpec.describe 'Item API' do
     expect(expected[:data].length).to eq 20
   end
   it 'Returns items with a min_price' do
-    Merchant.destroy_all
+    Merchant.destroy_all 
     Item.destroy_all
     merchant = create(:merchant)
     item1 = create(:item, unit_price: 2.00, merchant_id: merchant.id)
@@ -74,7 +74,7 @@ RSpec.describe 'Item API' do
     get "/api/v1/items/find_all?name=sweet&max_price=10.00"
 
     expect(response).not_to be_successful
-    expect(response.status).to eq 404
+    expect(response.status).to eq 400
   end
   it 'Should error out if name and min price are sent' do
     merchant = create(:merchant)
@@ -84,7 +84,7 @@ RSpec.describe 'Item API' do
     get "/api/v1/items/find_all?name=sweet&min_price=2.00"
 
     expect(response).not_to be_successful
-    expect(response.status).to eq 404
+    expect(response.status).to eq 400
   end
   it 'Should error out if both name and price min/max are sent' do
     merchant = create(:merchant)
@@ -94,6 +94,17 @@ RSpec.describe 'Item API' do
     get "/api/v1/items/find_all?name=sweet&min_price=3.50&max_price=10.00"
 
     expect(response).not_to be_successful
-    expect(response.status).to eq 404
+    expect(response.status).to eq 400
+  end
+  it "Should error out if parameter is missing or empty" do
+    get "/api/v1/items/find_all"
+
+    expect(response).not_to be_successful
+    expect(response.status).to eq 400
+
+    get "/api/v1/items/find_all?name="
+
+    expect(response).not_to be_successful
+    expect(response.status).to eq 400
   end
 end

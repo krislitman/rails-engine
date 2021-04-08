@@ -4,16 +4,17 @@ class ItemFacade
   end
 
   def self.search(search_terms)
-    case
-    when search_terms[:min_price] &&
-      search_terms[:max_price]
-      price_search(search_terms[:min_price], 
-        search_terms[:max_price])
-    when search_terms[:name]
+    if search_terms.empty?
+      return
+    elsif search_terms[:min_price] &&
+       search_terms[:max_price]
+      price_search(search_terms[:min_price],
+                   search_terms[:max_price])
+    elsif search_terms[:name]
       name_search(search_terms[:name])
-    when search_terms[:min_price]
+    elsif search_terms[:min_price]
       min_search(search_terms[:min_price])
-    when search_terms[:max_price]
+    elsif search_terms[:max_price]
       max_search(search_terms[:max_price])
     end
   end
@@ -37,7 +38,7 @@ class ItemFacade
   def self.name_search(search_term)
     Item.find_by_sql(
       "select items.* from items
-      where name ILIKE '%#{search_term}%' 
+      where name ILIKE '%#{search_term}%'
       order by name"
     )
   end
