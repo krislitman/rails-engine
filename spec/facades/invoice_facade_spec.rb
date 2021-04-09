@@ -1,16 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Invoice do
-  describe 'Validations' do 
-    it { should validate_presence_of :status }
-  end
-  describe 'Relationships' do
-    it { should have_many :transactions }
-    it { should have_many :invoice_items }
-    it { should have_many(:items).through(:invoice_items)}
-    it { should belong_to :merchant }
-    it { should belong_to :customer }
-  end
+RSpec.describe InvoiceFacade do
   describe 'Class Methods' do
     it '#potential_revenue' do
       Merchant.destroy_all
@@ -33,8 +23,24 @@ RSpec.describe Invoice do
       @transaction2 = create(:transaction, invoice_id: @invoice2.id)
       @invoice_item2 = create(:invoice_item, item_id: @item2.id, invoice_id: @invoice2.id, quantity: 40, unit_price: 40.00)
       # should NOT return, revenue = 1600.0
-
-      expected = 
+      @merchant3 = create(:merchant)
+      @customer3 = create(:customer)
+      @item3 = create(:item)
+      @invoice3 = create(:invoice, merchant_id: @merchant3.id, customer_id: @customer3.id, status: 'failed')
+      @transaction3 = create(:transaction, invoice_id: @invoice3.id)
+      @invoice_item3 = create(:invoice_item, item_id: @item3.id, invoice_id: @invoice3.id, quantity: 40, unit_price: 20.00)
+      # should return, revenue = 800.0
+      quantity = 1
+      expected = InvoiceFacade.potential_revenue(quantity)
+      
+      expect(expected.length).to eq 1
+      expect(expected[0].revenue).to eq 800.0
+      
+      quantity2 = 2
+      expected2 = InvoiceFacade.potential_revenue(quantity2)
+      
+      expect(expected2.length).to eq 2
+      expect(expected[0].revenue).to eq 800.0
     end
   end
 end

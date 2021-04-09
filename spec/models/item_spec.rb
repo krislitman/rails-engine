@@ -65,7 +65,33 @@ RSpec.describe Item do
       expect(Item.name_search(item2.name)[0].name).to eq(item2.name)
       expect(Item.name_search(item3.name)[0].name).to eq(item3.name)
     end
-    it '#max_search'
-    it '#min_search'
+    it '#max_search' do
+      Merchant.destroy_all
+      Item.destroy_all
+      merchant = create(:merchant)
+      item1 = create(:item, unit_price: 2.00, merchant_id: merchant.id)
+      item2 = create(:item, unit_price: 6.00, merchant_id: merchant.id)
+      item3 = create(:item, unit_price: 20.99, merchant_id: merchant.id)
+      item4 = create(:item, unit_price: 3.50, merchant_id: merchant.id)
+      item4 = create(:item, unit_price: 30.00, merchant_id: merchant.id)
+      max = "10"
+      expected = Item.max_search(max)
+      
+      expect(expected.length).to eq 3
+    end
+    it '#min_search' do
+      Merchant.destroy_all
+      Item.destroy_all
+      merchant = create(:merchant)
+      item1 = create(:item, unit_price: 2.00, merchant_id: merchant.id)
+      item2 = create(:item, unit_price: 6.00, merchant_id: merchant.id)
+      item3 = create(:item, unit_price: 20.99, merchant_id: merchant.id)
+      item4 = create(:item, unit_price: 3.50, merchant_id: merchant.id)
+      item4 = create(:item, unit_price: 30.00, merchant_id: merchant.id)
+      min = "2.25"
+      expected = Item.min_search(min)
+      
+      expect(expected.length).to eq 4
+    end
   end
 end
