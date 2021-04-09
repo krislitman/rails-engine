@@ -16,7 +16,7 @@ RSpec.describe 'Endpoint to return variable number of merchants' do
       expect(response).not_to be_successful
       expect(response.status).to eq 400
     end
-    it 'Returns 5 as default when no quantity is given' do
+    it 'Returns 5 merchants, sorted by most items DESC' do
       Merchant.destroy_all
       Item.destroy_all
       Invoice.destroy_all
@@ -70,7 +70,7 @@ RSpec.describe 'Endpoint to return variable number of merchants' do
       expect(expected[:data][0][:id].to_i).to eq(merchant6.id)
       expect(expected[:data].last[:id].to_i).to eq(merchant2.id)
     end
-    it 'Returns more than 5' do
+    it 'Returns more than 5 merchants if quantity is given' do
       Merchant.destroy_all
       Item.destroy_all
       Invoice.destroy_all

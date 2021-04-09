@@ -117,5 +117,16 @@ RSpec.describe 'Report of orders which have not shipped' do
       expect(expected[:data].length).to eq 7
       expect(expected[:data][0][:id].to_i).to eq(@invoice3.id)
     end
+    it 'Can return orders even if quantity is really high' do
+
+      get '/api/v1/revenue/unshipped?quantity=100'
+
+      expected = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(response.status).to eq 200
+      expect(expected[:data].length).to eq 10
+      expect(expected[:data][0][:id].to_i).to eq(@invoice3.id)
+    end
   end
 end
