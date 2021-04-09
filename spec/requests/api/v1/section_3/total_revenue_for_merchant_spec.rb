@@ -43,4 +43,11 @@ RSpec.describe 'Total revenue for a merchant' do
     expect(response).not_to be_successful
     expect(response.status).to eq 404
   end
+  it 'Should return error if param is string' do
+    
+    get "/api/v1/revenue/merchants/WHATTT"
+
+    expect(response).not_to be_successful
+    expect(response.status).to eq 404
+  end
 end

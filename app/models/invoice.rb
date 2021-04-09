@@ -9,10 +9,10 @@ class Invoice < ApplicationRecord
 
   def self.potential_revenue(quantity)
     joins(:invoice_items, :transactions)
-    .select('invoices.*, sum(invoice_items.unit_price * invoice_items.quantity) as revenue')
-    .merge(Transaction.successful)
-    .where('invoices.status != ?', 'shipped')
-    .group(:id).order('revenue DESC')
-    .limit(quantity)
+      .select('invoices.*, sum(invoice_items.unit_price * invoice_items.quantity) as revenue')
+      .merge(Transaction.successful)
+      .where('invoices.status != ?', 'shipped')
+      .group(:id).order('revenue DESC')
+      .limit(quantity)
   end
 end

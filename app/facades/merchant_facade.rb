@@ -14,7 +14,7 @@ class MerchantFacade
   end
 
   def self.all_merchants(page, per_page)
-    if page.to_i <= 1 
+    if page.to_i <= 1
       Merchant.pagination(1, per_page)
     else
       Merchant.pagination(page, per_page)

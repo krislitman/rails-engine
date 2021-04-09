@@ -5,11 +5,18 @@ RSpec.describe 'Endpoint to return variable number of merchants' do
     it 'Errors out when quantity is not greater than 0' do
       
       get '/api/v1/merchants/most_items?quantity=0'
-
+      
       expect(response).not_to be_successful
       expect(response.status).to eq 400
     end
-    it 'Returns 5 as default when no quantity is given' do
+    it 'Errors out when no quantity given' do
+      
+      get '/api/v1/merchants/most_items'
+      
+      expect(response).not_to be_successful
+      expect(response.status).to eq 400
+    end
+    it 'Returns 5 merchants, sorted by most items DESC' do
       Merchant.destroy_all
       Item.destroy_all
       Invoice.destroy_all
@@ -54,7 +61,7 @@ RSpec.describe 'Endpoint to return variable number of merchants' do
       transaction6 = create(:transaction, invoice_id: invoice6.id)
       
 
-      get '/api/v1/merchants/most_items'
+      get '/api/v1/merchants/most_items?quantity=5'
 
       expected = JSON.parse(response.body, symbolize_names: true)
 
@@ -63,7 +70,7 @@ RSpec.describe 'Endpoint to return variable number of merchants' do
       expect(expected[:data][0][:id].to_i).to eq(merchant6.id)
       expect(expected[:data].last[:id].to_i).to eq(merchant2.id)
     end
-    it 'Returns more than 5' do
+    it 'Returns more than 5 merchants if quantity is given' do
       Merchant.destroy_all
       Item.destroy_all
       Invoice.destroy_all

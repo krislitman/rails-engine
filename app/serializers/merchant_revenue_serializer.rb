@@ -1,6 +1,6 @@
 class MerchantRevenueSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name 
+  attributes :name
   def self.single_merchant_revenue(merchant_data)
     {
       data: {
@@ -13,4 +13,3 @@ class MerchantRevenueSerializer
     }
   end
 end
-

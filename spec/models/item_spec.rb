@@ -37,4 +37,71 @@ RSpec.describe Item do
       expect(item3.destroy_invoice).to eq([])
     end
   end
+  describe 'Class Methods' do
+    it '#pagination' do
+      Item.destroy_all
+      items = create_list(:item, 30)
+
+      expected = Item.pagination("1", "20")
+      expected2 = Item.pagination("2", "20")
+
+      expect(expected.length).to eq 20
+      expect(expected2.length).to eq 10
+    end
+    it '#price_search' do
+      Merchant.destroy_all
+      Item.destroy_all
+      merchant = create(:merchant)
+      item1 = create(:item, unit_price: 2.00, merchant_id: merchant.id)
+      item2 = create(:item, unit_price: 6.00, merchant_id: merchant.id)
+      item3 = create(:item, unit_price: 20.99, merchant_id: merchant.id)
+      item4 = create(:item, unit_price: 3.50, merchant_id: merchant.id)
+      item4 = create(:item, unit_price: 30.00, merchant_id: merchant.id)
+      min = "2.25"
+      max = "10"
+      expected = Item.price_search(min, max)
+      
+      expect(expected.length).to eq 2
+    end
+    it '#name_search' do
+      Merchant.destroy_all
+      Item.destroy_all
+      merchant = create(:merchant)
+      item1 = create(:item, merchant_id: merchant.id)
+      item2 = create(:item, merchant_id: merchant.id)
+      item3 = create(:item, merchant_id: merchant.id)
+
+      expect(Item.name_search(item1.name)[0].name).to eq(item1.name)
+      expect(Item.name_search(item2.name)[0].name).to eq(item2.name)
+      expect(Item.name_search(item3.name)[0].name).to eq(item3.name)
+    end
+    it '#max_search' do
+      Merchant.destroy_all
+      Item.destroy_all
+      merchant = create(:merchant)
+      item1 = create(:item, unit_price: 2.00, merchant_id: merchant.id)
+      item2 = create(:item, unit_price: 6.00, merchant_id: merchant.id)
+      item3 = create(:item, unit_price: 20.99, merchant_id: merchant.id)
+      item4 = create(:item, unit_price: 3.50, merchant_id: merchant.id)
+      item4 = create(:item, unit_price: 30.00, merchant_id: merchant.id)
+      max = "10"
+      expected = Item.max_search(max)
+      
+      expect(expected.length).to eq 3
+    end
+    it '#min_search' do
+      Merchant.destroy_all
+      Item.destroy_all
+      merchant = create(:merchant)
+      item1 = create(:item, unit_price: 2.00, merchant_id: merchant.id)
+      item2 = create(:item, unit_price: 6.00, merchant_id: merchant.id)
+      item3 = create(:item, unit_price: 20.99, merchant_id: merchant.id)
+      item4 = create(:item, unit_price: 3.50, merchant_id: merchant.id)
+      item4 = create(:item, unit_price: 30.00, merchant_id: merchant.id)
+      min = "2.25"
+      expected = Item.min_search(min)
+      
+      expect(expected.length).to eq 4
+    end
+  end
 end
