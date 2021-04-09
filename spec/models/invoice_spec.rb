@@ -34,7 +34,9 @@ RSpec.describe Invoice do
       @invoice_item2 = create(:invoice_item, item_id: @item2.id, invoice_id: @invoice2.id, quantity: 40, unit_price: 40.00)
       # should NOT return, revenue = 1600.0
 
-      expected = 
+      expected = Invoice.potential_revenue(1)
+
+      expect(expected[0].revenue).to eq 400.0
     end
   end
 end
