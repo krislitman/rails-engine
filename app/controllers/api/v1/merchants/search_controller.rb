@@ -5,7 +5,7 @@ class Api::V1::Merchants::SearchController < ApplicationController
     else
       merchant = MerchantFacade.search(params[:name])
       if merchant.nil?
-        render json: { data: {} }, status: :bad_request if merchant.nil? 
+        render json: { data: {} }, status: :bad_request if merchant.nil?
       else
         render json: MerchantSerializer.new(merchant)
       end

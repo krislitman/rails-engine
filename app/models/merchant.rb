@@ -13,12 +13,12 @@ class Merchant < ApplicationRecord
 
   def self.items_sold(quantity)
     joins(items: { invoice_items: :transactions })
-    .merge(Transaction.successful)
-    .select('merchants.*,
+      .merge(Transaction.successful)
+      .select('merchants.*,
     sum(invoice_items.quantity) as item_count')
-    .group('merchants.id')
-    .order('item_count desc')
-    .limit(quantity)
+      .group('merchants.id')
+      .order('item_count desc')
+      .limit(quantity)
   end
 
   def total_revenue
@@ -32,10 +32,10 @@ class Merchant < ApplicationRecord
 
   def self.by_revenue(quantity)
     find_by_sql(
-      "select merchants.*, sum(invoice_items.unit_price * invoice_items.quantity) 
+      "select merchants.*, sum(invoice_items.unit_price * invoice_items.quantity)
       as total_revenue from merchants
-      inner join items 
-      on items.merchant_id = merchants.id 
+      inner join items
+      on items.merchant_id = merchants.id
       inner join invoice_items
       on invoice_items.item_id = items.id
       inner join invoices

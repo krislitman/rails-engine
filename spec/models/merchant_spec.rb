@@ -19,6 +19,15 @@ RSpec.describe Merchant do
       Customer.destroy_all
       InvoiceItem.destroy_all
     end
+    it '#pagination' do
+      merchants = create_list(:merchant, 30)
+
+      expected = Merchant.pagination("1", "20")
+      expected2 = Merchant.pagination("2", "20")
+
+      expect(expected.length).to eq 20
+      expect(expected2.length).to eq 10
+    end
     it '#search' do
       merchant = create(:merchant, name: "Cool shop")
       merchant2 = create(:merchant, name: "NOT SWEET")

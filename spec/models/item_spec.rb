@@ -38,6 +38,16 @@ RSpec.describe Item do
     end
   end
   describe 'Class Methods' do
+    it '#pagination' do
+      Item.destroy_all
+      items = create_list(:item, 30)
+
+      expected = Item.pagination("1", "20")
+      expected2 = Item.pagination("2", "20")
+
+      expect(expected.length).to eq 20
+      expect(expected2.length).to eq 10
+    end
     it '#price_search' do
       Merchant.destroy_all
       Item.destroy_all

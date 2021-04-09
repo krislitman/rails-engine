@@ -22,7 +22,7 @@ class Item < ApplicationRecord
       order by name"
     )
   }
-  
+
   scope :max_search, lambda { |max_price|
     where('unit_price <= ?', max_price)
   }
@@ -32,9 +32,9 @@ class Item < ApplicationRecord
   }
 
   def destroy_invoice
-    expected = invoices.joins(:items)
-    .select("invoices.*, count(items.*)")
-    .group("invoices.id")
-    .having("count(items.*) = 1").pluck(:id)
+    invoices.joins(:items)
+            .select('invoices.*, count(items.*)')
+            .group('invoices.id')
+            .having('count(items.*) = 1').pluck(:id)
   end
 end
