@@ -2,7 +2,7 @@ class Api::V1::ItemsController < ApplicationController
   before_action :set_item, only: %i[show update destroy]
   def index
     if params[:per_page] && params[:per_page].to_i <= 0
-      render json: { error: 'Wrong parameters' }, status: :bad_request
+      render json: { error: 'Invalid parameters' }, status: :bad_request
     else
       items = ItemFacade.all_items(params.fetch(:page, 1), params.fetch(:per_page, 20))
       render json: ItemSerializer.new(items)

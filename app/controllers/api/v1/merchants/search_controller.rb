@@ -1,6 +1,6 @@
 class Api::V1::Merchants::SearchController < ApplicationController
   def index
-    if params[:name].nil? || params[:name].empty?
+    if params[:name].blank?
       render json: { data: {} }, status: :bad_request
     else
       merchant = MerchantFacade.search(params[:name])
