@@ -1,6 +1,6 @@
 # Rails Engine
 
-Rails Engine is a Rails API Application, with data exposed through an API.
+Rails Engine is a Rails API Application, created with Ruby on Rails
 
 ## Table of Contents
 
