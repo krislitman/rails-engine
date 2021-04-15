@@ -4,7 +4,7 @@ Rails Engine is a Rails API Application, created with Ruby on Rails
 
 ## Table of Contents
 
-  - [Authors](#authors)
+  - [Author](#author)
   - [Getting Started](#getting-started)
   - [Runing the tests](#running-the-tests)
   - [Built With](#built-with)
